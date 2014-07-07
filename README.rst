@@ -1,5 +1,5 @@
 ========================
-Base para proyectos de Django
+ETS_GG
 ========================
 
 Esta base para django trabaja con la version 1.6
@@ -34,14 +34,3 @@ Activamos el ambiente virtual
 Instalamos las dependencias
 
     $ pip install -r requeriments.txt
-
-Agradecimientos
---------------------------
-
-**Gustavo Castellanos**
-
-Web personal: www.gustavo-castellanos.com, 
-
-Organizacion: www.zaresdelweb.com, 
-
-Blog: www.zaresdelaweb.com
