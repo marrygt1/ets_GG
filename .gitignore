@@ -1,0 +1,53 @@
+#Archivo donde se encuentran todos las variables importantes
+project/project/settings/variables.py
+project/media/
+
+#Archivos de la maquina virtual
+bin/
+include/
+lib/
+apache2/
+share/
+build/
+
+# Python bytecode:
+*.py[co]
+*.pyc
+
+# Packaging files:
+*.egg*
+
+# Sphinx docs:
+build
+
+# SQLite3 database files:
+*.db
+
+# Logs:
+*.log
+
+# Eclipse
+.project
+.pydevproject
+.settings
+
+# Linux Editors
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+*.swp
+*.swo
+
+# Mac
+.DS_Store
+._*
+
+# Windows
+Thumbs.db
+Desktop.ini
+

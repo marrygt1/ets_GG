@@ -1,0 +1,43 @@
+{%extends "base.html"%}
+
+{%block styles%}
+	{% load bootstrap3 %}
+{%endblock%}
+
+{%block alerts%}
+{%endblock%}
+
+{%block content%}
+	<div class="row">
+		<form action="" method="post" class="form">{% csrf_token %}
+			<div class="col-xs-4">
+				    {% csrf_token %}
+				    {% bootstrap_form grafica_form %}
+			</div><!-- /.col -->
+			<div class="col-xs-4">
+				    Primer valor
+				    {% bootstrap_form valoresForm %}
+			</div><!-- /.col -->
+			<div class="col-xs-4">
+				    Segundo valor
+					<div class="form-group"><label>Value</label><input class="form-control" id="id_value2" name="value2" placeholder="Value" required="" step="any" title="" type="number" /></div>
+					<div class="form-group"><label>Color</label><input class="form-control" id="id_color2" maxlength="40" name="color2" placeholder="Color" required="" title="" type="text" /></div>
+					<div class="form-group"><label>Highlight</label><input class="form-control" id="id_highlight2" maxlength="40" name="highlight2" placeholder="Highlight" required="" title="" type="text" /></div>
+					<div class="form-group"><label>Label</label><input class="form-control" id="id_label2" maxlength="40" name="label2" placeholder="Label" required="" title="" type="text" /></div>
+				    {% buttons %}
+				        <button type="submit" class="btn btn-primary">
+				             Enviar
+				        </button>
+				    {% endbuttons %}
+			</div><!-- /.col -->
+		</form>
+	</div><!-- /.row -->
+
+{%endblock%}
+
+{%block js%}
+{%endblock%}
+
+{%block scripts%}
+{%endblock%}
+

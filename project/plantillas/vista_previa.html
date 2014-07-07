@@ -1,0 +1,120 @@
+{%extends "base.html"%}
+
+{%block styles%}
+	{% load bootstrap3 %}
+{%endblock%}
+
+{%block alerts%}
+{%endblock%}
+
+{%block content%}
+	<div class="row">
+		<div class="col-xs-4">
+			Nombre:{{grafica.nombre}}<br />
+			Tipo:{{grafica.tipo}}<br />
+			Curso:{{grafica.curso}}<br /><br />
+
+			    {% bootstrap_form valoresForm %}
+			    {% buttons %}
+			    	{%if grafica.tipo == 'Pie' or grafica.tipo == 'Doughnut'%}
+				        <button onClick="location.reload();" class="btn btn-default">
+				             Actualizar Grafica
+				        </button>
+				    {%endif%}
+			        <button id="actualizar" type="button" class="btn btn-primary">
+			             Actualizar
+			        </button>
+			    {% endbuttons %}
+		</div><!-- /.col -->
+		<div class="col-xs-8">
+			<div style="width: 100%">
+				<canvas id="canvas" height="450" width="600"></canvas>
+			</div>
+			
+		</div><!-- /.col -->
+	</div><!-- /.row -->
+
+{%endblock%}
+
+{%block js%}
+	<script src="{{STATIC_URL}}js/Chart.js"></script>
+{%endblock%}
+
+{%block scripts%}
+	<script>
+	
+		$( "#actualizar" ).click(function() {
+
+			var data = new FormData();
+			data.append("value", $('#id_value').val());
+			data.append("color", $('#id_color').val());
+			data.append("highlight", $('#id_highlight').val());
+			data.append("label", $('#id_label').val());
+			data.append("grafica", '{{grafica.id}}');
+			$.ajax({
+				type: "POST",
+				dataType: 'json',
+				url: '{%url "actualizar"%}',
+				data: data,
+				success: function(data){
+					console.log(data)
+					actualizar(data.value,data.color,data.highlight,data.label,data.tipo)
+				},
+				error: function(data){
+                  	alert("Algo salio mal")                                                                  
+				},
+				processData: false,
+				contentType: false
+			})
+        });
+
+		var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+
+		{%if grafica.tipo == 'Line' or grafica.tipo == 'Bar' or grafica.tipo == 'Radar'%}
+			function actualizar(value,color,highlight,label,tipo){
+				myBar.addData([value], label);
+			}
+
+			var ChartData = {
+				labels : [{%for label in labels %}"{{label}}",{%endfor%}],
+				datasets : [
+					{
+						fillColor : "rgba(151,187,205,0.5)",
+						strokeColor : "rgba(151,187,205,0.8)",
+						highlightFill : "rgba(151,187,205,0.75)",
+						highlightStroke : "rgba(151,187,205,1)",
+						data : [{%for dato in data %}{{dato}},{%endfor%}]
+					},
+				]
+
+			}
+		{%endif%}
+		{%if grafica.tipo == 'Pie' or grafica.tipo == 'PolarArea' or grafica.tipo == 'Doughnut'%}
+			function actualizar(value,color,highlight,label,tipo){
+				myBar.addData({
+				    value: value,
+				    color: "#"+color,
+				    highlight: "#"+highlight,
+				    label: label
+				},1);
+			}
+			var ChartData = [
+				{%for dato in valores%}
+			    {	
+			        value: {{dato.value}},
+			        color:"#{{dato.color}}",
+			        highlight: "#{{dato.highlight}}",
+			        label: "{{dato.label}}"
+			    },
+			    {%endfor%}
+			]
+		{%endif%}
+		window.onload = function(){
+			var ctx = document.getElementById("canvas").getContext("2d");
+			myBar = new Chart(ctx).{{grafica.tipo}}(ChartData, {
+				responsive : true
+			});
+		}
+	</script>
+{%endblock%}
+
