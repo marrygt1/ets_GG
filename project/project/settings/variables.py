@@ -3,7 +3,7 @@ import datetime
  
 EMPRESA = 'ETS_GG'
 EXPIRA = datetime.date(2099, 6, 1)
-NOMBRE = "Guadalupe Gandarilla"
+NOMBRE = "Guadalupe Gandarillas"
 #######
 SECRET_KEY_PRIV = 'p*v33kjgu^_s!^fe+-_g^fiv5^@e377647!m&3%%xa6!bvbdy$'
 NOMBRE_DB = 'xxxx'
